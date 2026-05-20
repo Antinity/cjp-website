@@ -1,9 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Cockroach Janta Party — Voice of the Lazy & Unemployed",
   description: "A political party for the people the system forgot to count.",
+};
+
+export const viewport: Viewport = {
   themeColor: "#F4EBD7",
 };
 
