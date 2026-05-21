@@ -39,6 +39,14 @@ export default function Nav() {
                 </a>
               </li>
             ))}
+            <li>
+              <a 
+                href="/volunteer" 
+                className="font-condensed text-[14px] font-medium tracking-[0.18em] uppercase text-ink py-[6px] relative after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[2px] after:bg-saffron after:scale-x-0 after:origin-left after:transition-transform after:duration-250 hover:text-saffron-deep hover:after:scale-x-100"
+              >
+                VOLUNTEER
+              </a>
+            </li>
           </ul>
         </nav>
 
