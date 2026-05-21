@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="bg-ink text-paper">
       <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-[56px]">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-12 lg:gap-[80px] pt-[64px] lg:pt-[80px] pb-[48px] lg:pb-[60px]">
-
+          
           <div className="flex flex-col">
             <div className="flex items-center gap-[14px] mb-[18px]">
               <span className="flex flex-col gap-[6px] leading-none">
@@ -49,10 +49,10 @@ export default function Footer() {
                 Follow
               </h4>
               <ul className="list-none flex flex-col gap-[11px]">
-                <li><a href="https://x.com/CJP_2029" target="_blank" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Twitter / X</a></li>
-                <li><a href="https://www.instagram.com/cockroachjantaparty/" target="_blank" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Instagram</a></li>
-                {/* <li><a href="#" target="_blank" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Coming soon: Discord</a></li>
-                <li><a href="#" target="_blank" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Coming soon: Reddit</a></li> */}
+                <li><a href="#" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Twitter / X</a></li>
+                <li><a href="#" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Instagram</a></li>
+                <li><a href="#" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">YouTube</a></li>
+                <li><a href="#" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Telegram</a></li>
               </ul>
             </div>
           </div>
@@ -66,8 +66,8 @@ export default function Footer() {
               ⚠ A work of satire
             </span>
             <div className="flex gap-[8px]">
-              <a href="#" className="text-[rgba(244,235,215,0.55)] transition-colors duration-150 hover:text-saffron-2">Privacy</a> ·
-              <a href="#" className="text-[rgba(244,235,215,0.55)] transition-colors duration-150 hover:text-saffron-2">Press</a> ·
+              <a href="#" className="text-[rgba(244,235,215,0.55)] transition-colors duration-150 hover:text-saffron-2">Privacy</a> · 
+              <a href="#" className="text-[rgba(244,235,215,0.55)] transition-colors duration-150 hover:text-saffron-2">Press</a> · 
               <a href="/#contact" className="text-[rgba(244,235,215,0.55)] transition-colors duration-150 hover:text-saffron-2">Contact</a>
             </div>
           </div>
