@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import CounterCell from "./CounterCell";
 
 interface HeroProps {
@@ -9,6 +11,25 @@ interface HeroProps {
 }
 
 export default function Hero({ stats = { members: 0, visitorsToday: 0 } }: HeroProps) {
+  const [petitionCount, setPetitionCount] = useState<number>(0);
+
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        const response = await fetch("/api/petition.php?action=get");
+        if (response.ok) {
+          const data = await response.json();
+          if (data && typeof data.count === "number") {
+            setPetitionCount(data.count);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch petition count in Hero:", error);
+      }
+    };
+    fetchCount();
+  }, []);
+
   return (
     <section className="relative border-b-[3px] border-ink overflow-hidden" data-screen-label="01 Hero">
       <div
@@ -38,7 +59,7 @@ export default function Hero({ stats = { members: 0, visitorsToday: 0 } }: HeroP
             Five demands. Zero sponsors. One large, stubborn swarm.
           </p>
 
-          <div className="flex items-center gap-6 mb-14 flex-wrap">
+          <div className="flex items-center gap-5 sm:gap-6 mb-14 flex-wrap">
             <a
               href="#join"
               className="bg-saffron-deep text-paper font-condensed text-[14px] font-bold tracking-[0.2em] uppercase py-[18px] px-[32px] border-2 border-ink shadow-[6px_6px_0_var(--color-ink)] transition-all duration-150 inline-flex items-center gap-[14px] group hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[3px_3px_0_var(--color-ink)]"
@@ -46,17 +67,33 @@ export default function Hero({ stats = { members: 0, visitorsToday: 0 } }: HeroP
               Join the Party
               <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
             </a>
+
+            <a
+              href="/sack"
+              className="bg-[#E53E3E] hover:bg-[#F55252] text-paper font-condensed tracking-[0.1em] py-[12px] px-[24px] border-2 border-ink shadow-[6px_6px_0_var(--color-ink)] transition-all duration-150 flex flex-col items-start gap-0.5 group hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[3px_3px_0_var(--color-ink)] relative overflow-hidden"
+            >
+              <div className="flex items-center gap-[8px] flex-wrap sm:flex-nowrap">
+                <span className="w-2.5 h-2.5 rounded-full bg-gold animate-livepulse flex-shrink-0"></span>
+                <span className="font-bold text-[14px] sm:text-[16px] uppercase tracking-[0.15em] text-paper leading-tight">
+                  Sack the Education Minister
+                </span>
+                {petitionCount > 0 && (
+                  <span className="bg-ink text-gold font-mono text-[10px] tracking-normal font-bold px-2 py-[2px] rounded-full border border-gold/20 ml-2">
+                    {petitionCount.toLocaleString()}
+                  </span>
+                )}
+              </div>
+              <div className="font-sans text-[11px] font-medium tracking-[0.05em] text-paper/80 flex items-center gap-1.5 pl-[18px]">
+                <span>File the petition!</span>
+                <span className="transition-transform duration-200 group-hover:translate-x-1">➔</span>
+              </div>
+            </a>
+
             <a
               href="#manifesto"
               className="font-condensed text-[14px] font-medium tracking-[0.2em] uppercase text-ink border-b border-ink pb-[6px] transition-colors duration-200 hover:text-saffron-deep hover:border-saffron-deep"
             >
               Read the Manifesto
-            </a>
-            <a
-              href="/sack"
-              className="font-condensed text-[14px] font-bold tracking-[0.1em] uppercase text-blood border-b-2 border-blood pb-[4px] transition-all duration-200 hover:bg-blood hover:text-paper px-2 pt-1"
-            >
-              Petition to sack Education minister
             </a>
           </div>
 

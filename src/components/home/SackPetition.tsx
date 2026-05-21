@@ -15,14 +15,14 @@ export default function SackPetition() {
   // Detect device performance capability
   const getOptimizedBugCount = () => {
     if (typeof window === "undefined") return 0;
-    
+
     const width = window.innerWidth;
     const memory = (navigator as any).deviceMemory; // Device RAM in GB
     const cores = navigator.hardwareConcurrency || 1;
-    
+
     // Very old phone detection: low RAM, low cores
     const isOldDevice = memory && memory <= 2 && cores <= 2;
-    
+
     if (width > 768) {
       // Desktop
       return isOldDevice ? 100 : 400;
@@ -36,7 +36,7 @@ export default function SackPetition() {
   };
 
   const BUG_COUNT = getOptimizedBugCount();
-  
+
   useEffect(() => {
     // Preload cockroach image
     const img = new window.Image();
@@ -69,7 +69,7 @@ export default function SackPetition() {
             }
           }
           offCtx.putImageData(imgData, 0, 0);
-          
+
           const processedImg = new window.Image();
           processedImg.src = offCanvas.toDataURL();
           processedImg.onload = () => {
@@ -89,7 +89,7 @@ export default function SackPetition() {
         const response = await fetch("/api/petition.php?action=get");
         const data = await response.json();
         setPetitionCount(data.count);
-        
+
         // Check if this user already voted (store in localStorage)
         const voted = localStorage.getItem("sack-petition-voted");
         if (voted) {
@@ -105,27 +105,27 @@ export default function SackPetition() {
 
     fetchCount();
   }, []);
-  
+
   const drawBug = (ctx: CanvasRenderingContext2D, x: number, y: number, angle: number, size: number) => {
     ctx.save();
     ctx.translate(x, y);
     // Add 90 degrees (Math.PI/2) because top-down images usually face UP, but Math.atan2 faces RIGHT
-    ctx.rotate(angle + Math.PI / 2); 
-    
+    ctx.rotate(angle + Math.PI / 2);
+
     // Normal blending
     ctx.globalCompositeOperation = "source-over";
-    
+
     if (cockroachImgRef.current) {
       // Draw the realistic cockroach image with responsive size
-      ctx.drawImage(cockroachImgRef.current, -size/2, -size/2, size, size);
+      ctx.drawImage(cockroachImgRef.current, -size / 2, -size / 2, size, size);
     }
-    
+
     ctx.restore();
   };
 
   const handleSack = useCallback(() => {
     if (isAnimating || !canvasRef.current || !imageRef.current) return;
-    
+
     setIsAnimating(true);
 
     // Increment petition counter (only once per user session)
@@ -144,11 +144,11 @@ export default function SackPetition() {
     const ctx = canvas.getContext("2d");
     const section = canvas.parentElement;
     if (!ctx || !section) return;
-    
+
     // Set canvas to full section size (so it scrolls naturally)
     canvas.width = section.offsetWidth;
     canvas.height = section.offsetHeight;
-    
+
     // Get target coordinates (center of the image) relative to the section canvas
     const imgRect = imageRef.current.getBoundingClientRect();
     const sectionRect = section.getBoundingClientRect();
@@ -162,14 +162,14 @@ export default function SackPetition() {
       const edge = Math.floor(Math.random() * 4);
       let startX = 0;
       let startY = 0;
-      
+
       switch (edge) {
         case 0: startX = Math.random() * canvas.width; startY = -40; break;
         case 1: startX = canvas.width + 40; startY = Math.random() * canvas.height; break;
         case 2: startX = Math.random() * canvas.width; startY = canvas.height + 40; break;
         case 3: startX = -40; startY = Math.random() * canvas.height; break;
       }
-      
+
       return {
         x: startX,
         y: startY,
@@ -200,9 +200,9 @@ export default function SackPetition() {
       }
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       const elapsed = time - startTime;
-      
+
       // Responsive cockroach size - much bigger for desktop!
       const bugSize = window.innerWidth > 1280 ? 120 : window.innerWidth > 1024 ? 90 : window.innerWidth > 768 ? 60 : 40;
 
@@ -214,7 +214,7 @@ export default function SackPetition() {
           const dx = targetX - bug.x;
           const dy = targetY - bug.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          
+
           if (dist < eatRadius + 40) {
             if (!bug.isEating) {
               bug.isEating = true;
@@ -222,12 +222,12 @@ export default function SackPetition() {
             }
             // Roam randomly over the target area instead of jittering in place
             bug.angle += (Math.random() - 0.5) * 1.5;
-            
+
             // If they wander too far from target, gently steer them back to center
             if (dist > eatRadius + 80) {
               bug.angle = Math.atan2(dy, dx);
             }
-            
+
             // Move more slowly while eating
             bug.x += Math.cos(bug.angle) * (bug.speed * 0.9);
             bug.y += Math.sin(bug.angle) * (bug.speed * 0.9);
@@ -243,7 +243,7 @@ export default function SackPetition() {
           bug.x += Math.cos(bug.scatterAngle) * bug.speed;
           bug.y += Math.sin(bug.scatterAngle) * bug.speed;
           bug.angle = bug.scatterAngle; // face the direction they run
-          
+
           // Check if bug is still visible on canvas
           if (
             bug.x > -150 && bug.x < canvas.width + 150 &&
@@ -252,7 +252,7 @@ export default function SackPetition() {
             allBugsOut = false;
           }
         }
-        
+
         drawBug(ctx, bug.x, bug.y, bug.angle, bugSize);
       });
 
@@ -261,7 +261,7 @@ export default function SackPetition() {
         const eatProgress = Math.min(eatenCount / (BUG_COUNT * 0.8), 1);
         imageRef.current.style.opacity = (1 - eatProgress).toString();
         imageRef.current.style.transform = `scale(${1 - eatProgress * 0.5})`;
-        
+
         if (eatProgress >= 1 && elapsed > 2000) {
           // Image completely eaten! Switch to scatter phase
           phase = 1;
@@ -269,7 +269,7 @@ export default function SackPetition() {
             // Pick a random direction roughly AWAY from the center
             const dx = bug.x - targetX;
             const dy = bug.y - targetY;
-            bug.scatterAngle = Math.atan2(dy, dx) + (Math.random() - 0.5); 
+            bug.scatterAngle = Math.atan2(dy, dx) + (Math.random() - 0.5);
             // Give them slow scatter speed
             bug.speed = 2 + Math.random() * 3;
           });
@@ -279,7 +279,7 @@ export default function SackPetition() {
         cancelAnimationFrame(animationFrameId);
         setIsAnimating(false);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         // Restore image back to original state
         if (imageRef.current) {
           imageRef.current.style.opacity = "1";
@@ -316,8 +316,8 @@ export default function SackPetition() {
   return (
     <section id="sack-petition" className="relative border-b-[3px] border-ink bg-paper-2 py-[72px] lg:py-[100px] overflow-hidden" data-screen-label="Petition">
       {/* Canvas for bugs - Absolute positioning to scroll with section */}
-      <canvas 
-        ref={canvasRef} 
+      <canvas
+        ref={canvasRef}
         className="absolute inset-0 z-50 pointer-events-none"
       />
 
@@ -332,10 +332,10 @@ export default function SackPetition() {
 
         <div className="relative flex flex-col items-center">
           <div className="relative mb-8 transition-transform duration-300">
-            <img 
+            <img
               ref={imageRef}
-              src="/education_minister.webp" 
-              alt="Education Minister" 
+              src="/education_minister.webp"
+              alt="Education Minister"
               onClick={handleSack}
               className="w-[200px] h-[200px] sm:w-[280px] sm:h-[280px] object-contain mix-blend-multiply transition-all duration-300 ease-in-out cursor-pointer hover:scale-105"
               style={{ opacity: 1, transform: "scale(1)" }}
