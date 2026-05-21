@@ -1,8 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cockroach Janta Party (CJP) - Official Website
 
-## Getting Started
+> *"What began as internet satire has become one of India’s fastest-growing youth political movements, turning mockery into mobilization."* - Cockroach Janta Party
 
-First, run the development server:
+This is the official repository for the Cockroach Janta Party website. It serves as the digital headquarters for our movement, featuring live membership counters, petition signups, volunteer labor forms, and our official manifesto.
+
+## Features
+
+- **Live Statistics**: Real-time trackers for website visitors, members, and petition signatures.
+- **Volunteer Forms**: The "Get Off Your Couch" Youth Suggestion & Labor Form.
+- **Manifesto & Vision**: Clear, uncompromising stances on youth issues.
+- **Responsive Design**: Built with a bold, brutalist, and modern aesthetic using Tailwind CSS.
+
+## Tech Stack
+
+- **Frontend**: [Next.js](https://nextjs.org/) (React) configured as a static export.
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) with a custom brutalist design system.
+- **Backend/API**: PHP endpoints designed for Hostinger deployment.
+- **Database**: MySQL.
+- **Caching**: APCu for high-performance counter updates.
+
+## Getting Started (Local Development)
+
+First, install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -10,21 +39,22 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can start editing the page by modifying `src/app/page.tsx`.
 
 ## Hostinger Deployment
 
-This project is configured as a static Next.js export with PHP endpoints in `public/api`.
+This project is configured as a static Next.js export with PHP endpoints located in the `public/api` directory.
 
-1. Run `npm run build`.
-2. Upload the generated `out` folder contents to Hostinger `public_html`.
-3. Create the MySQL tables from `HOSTINGER_COUNTER_ARCHITECTURE.md`.
-4. Enable APCu for the active PHP version in hPanel.
-5. Set a cron job every 5 minutes:
+1. Run the build command to generate static files:
+   ```bash
+   npm run build
+   ```
+2. Upload the contents of the generated `out` folder to your Hostinger `public_html` directory.
+3. Create the necessary MySQL tables as defined in `HOSTINGER_COUNTER_ARCHITECTURE.md`.
+4. Enable **APCu** for the active PHP version in the Hostinger hPanel.
+5. Set up a cron job to run every 5 minutes to flush cached counts to the database:
 
 ```bash
 curl -s "https://your-domain.com/api/counter.php?action=flush&token=YOUR_TOKEN" >/dev/null 2>&1
@@ -32,23 +62,6 @@ curl -s "https://your-domain.com/api/petition.php?action=flush&token=YOUR_TOKEN"
 curl -s "https://your-domain.com/api/members.php?action=flush&token=YOUR_TOKEN" >/dev/null 2>&1
 ```
 
-Set `FLUSH_TOKEN`, `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`, `IP_HASH_SALT`, and `ALLOWED_ORIGIN` in the hosting environment.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Environment Variables Required on Server:**
+Ensure the following variables are set securely in your PHP environment (`.env` or similar depending on configuration):
+`FLUSH_TOKEN`, `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`, `IP_HASH_SALT`, and `ALLOWED_ORIGIN`.
