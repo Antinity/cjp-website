@@ -8,6 +8,7 @@ export default function SackPetition() {
   const [petitionCount, setPetitionCount] = useState<number>(0);
   const [isLoadingCount, setIsLoadingCount] = useState(true);
   const [hasVoted, setHasVoted] = useState(false);
+  const [iframeLoadCount, setIframeLoadCount] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const cockroachImgRef = useRef<HTMLImageElement | null>(null);
@@ -296,7 +297,7 @@ export default function SackPetition() {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [isAnimating, hasVoted]);
+  }, [isAnimating, hasVoted, BUG_COUNT]);
 
   // Handle resize
   useEffect(() => {
@@ -313,6 +314,16 @@ export default function SackPetition() {
     return () => window.removeEventListener("resize", handleResize);
   }, [isAnimating]);
 
+  useEffect(() => {
+    // If iframe has loaded twice (initial load + form submission confirmation page)
+    if (iframeLoadCount === 2) {
+      // Ensure we don't restart animation if already animating
+      if (!isAnimating) {
+        handleSack();
+      }
+    }
+  }, [iframeLoadCount, handleSack, isAnimating]);
+
   return (
     <section id="sack-petition" className="relative border-b-[3px] border-ink bg-paper-2 py-[72px] lg:py-[100px] overflow-hidden" data-screen-label="Petition">
       {/* Canvas for bugs - Absolute positioning to scroll with section */}
@@ -327,42 +338,57 @@ export default function SackPetition() {
           <span className="text-blood italic font-['Georgia',serif]">Education Minister</span>
         </h2>
         <p className="font-sans text-[18px] max-w-[600px] text-ink-2 mb-[48px]">
-          We demand accountability. The current education system is broken, our exams leak like sieves, and the future of millions of students hangs in the balance. Sign the petition with an action.
+          We demand accountability. The current education system is broken, our exams leak like sieves, and the future of millions of students hangs in the balance. Sign the petition below.
         </p>
 
-        <div className="relative flex flex-col items-center">
-          <div className="relative mb-8 transition-transform duration-300">
-            <img 
-              ref={imageRef}
-              src="/education_minister.webp" 
-              alt="Education Minister" 
-              onClick={handleSack}
-              className="w-[200px] h-[200px] sm:w-[280px] sm:h-[280px] object-contain mix-blend-multiply transition-all duration-300 ease-in-out cursor-pointer hover:scale-105"
-              style={{ opacity: 1, transform: "scale(1)" }}
-            />
+        <div className="flex flex-col lg:flex-row items-stretch justify-center gap-8 lg:gap-12 w-full max-w-[1100px] mx-auto">
+          {/* Main Form Area */}
+          <div className="w-full lg:w-[60%] flex flex-col items-center bg-paper border-[3px] border-ink shadow-[8px_8px_0_var(--color-ink)] p-4 sm:p-6 relative z-20">
+            <h3 className="font-condensed text-[24px] sm:text-[28px] font-bold tracking-[0.05em] uppercase mb-4 text-ink w-full text-left">
+              Sign the Petition
+            </h3>
+            <div className="w-full bg-paper-2 border-[2px] border-ink-2 relative h-[600px] sm:h-[800px] lg:h-[961px] overflow-hidden">
+              <iframe 
+                src="https://docs.google.com/forms/d/e/1FAIpQLSexPWW9l2FHt27Gnq_0huADzR9lXZ3undgSg03cNnMB_lhbjg/viewform?embedded=true" 
+                width="100%" 
+                height="100%" 
+                frameBorder="0" 
+                marginHeight={0} 
+                marginWidth={0}
+                onLoad={() => setIframeLoadCount(prev => prev + 1)}
+                className="absolute inset-0"
+              >Loading…</iframe>
+            </div>
           </div>
 
-          <div className="h-[80px] flex items-center justify-center">
-            <button
-              onClick={handleSack}
-              disabled={isAnimating}
-              className={`bg-blood text-paper font-condensed text-[20px] sm:text-[24px] font-bold tracking-[0.1em] uppercase py-[16px] px-[48px] border-[3px] border-ink shadow-[6px_6px_0_var(--color-ink)] transition-all duration-150 inline-flex items-center gap-[14px] group hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[3px_3px_0_var(--color-ink)] ${isAnimating ? 'opacity-50 cursor-not-allowed' : ''}`}
-            >
-              {isAnimating ? 'Sacking in progress...' : 'SACK NOW'}
-            </button>
-          </div>
+          {/* Side Info & Image */}
+          <div className="w-full lg:w-[40%] flex flex-col items-center justify-center lg:sticky lg:top-[100px] lg:self-start gap-8">
+            <div className="relative transition-transform duration-300">
+              <img 
+                ref={imageRef}
+                src="/education_minister.webp" 
+                alt="Education Minister" 
+                onClick={handleSack}
+                className="w-[200px] h-[200px] sm:w-[280px] sm:h-[280px] object-contain mix-blend-multiply transition-all duration-300 ease-in-out cursor-pointer hover:scale-105"
+                style={{ opacity: 1, transform: "scale(1)" }}
+              />
+              <p className="font-sans text-[12px] text-ink-3 mt-2 text-center italic">
+                (Click the image to preview the sacking)
+              </p>
+            </div>
 
-          {/* Petitions Counter */}
-          <div className="mt-[32px] text-center">
-            <p className="font-sans text-[16px] sm:text-[18px] text-ink-2 mb-[8px]">
-              Join the movement:
-            </p>
-            <p className="font-display text-[32px] sm:text-[48px] font-bold text-blood">
-              {isLoadingCount ? "..." : petitionCount.toLocaleString()}
-            </p>
-            <p className="font-sans text-[14px] text-ink-2">
-              {hasVoted ? "✓ You've signed" : "petition signatures"}
-            </p>
+            {/* Petitions Counter */}
+            <div className="text-center bg-paper border-[3px] border-ink shadow-[6px_6px_0_var(--color-ink)] p-6 w-full max-w-[320px]">
+              <p className="font-sans text-[16px] sm:text-[18px] text-ink-2 mb-[8px] font-bold">
+                Join the movement:
+              </p>
+              <p className="font-display text-[48px] sm:text-[56px] leading-[1] font-bold text-blood mb-2">
+                {isLoadingCount ? "..." : petitionCount.toLocaleString()}
+              </p>
+              <p className="font-sans text-[14px] text-ink-2 uppercase tracking-wide font-bold">
+                {hasVoted ? "✓ You've signed" : "petition signatures"}
+              </p>
+            </div>
           </div>
         </div>
       </div>
