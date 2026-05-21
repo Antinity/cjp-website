@@ -49,10 +49,10 @@ export default function Footer() {
                 Follow
               </h4>
               <ul className="list-none flex flex-col gap-[11px]">
-                <li><a href="#" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Twitter / X</a></li>
-                <li><a href="#" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Instagram</a></li>
-                <li><a href="#" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">YouTube</a></li>
-                <li><a href="#" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Telegram</a></li>
+                <li><a href="https://x.com/CJP_2029" target="_blank" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Twitter / X</a></li>
+                <li><a href="https://www.instagram.com/cockroachjantaparty/" target="_blank" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Instagram</a></li>
+                <li><a href="#" target="_blank" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">YouTube</a></li>
+                <li><a href="#" target="_blank" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Telegram</a></li>
               </ul>
             </div>
           </div>
