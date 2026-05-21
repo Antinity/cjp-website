@@ -5,7 +5,7 @@ export default function Nav() {
     <header className="bg-[rgba(244,235,215,0.94)] backdrop-blur-[8px] border-b-2 border-ink sticky top-0 z-[100]">
       <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-[56px] py-4 grid grid-cols-[1fr_auto] lg:grid-cols-[auto_1fr_auto] items-center gap-4 lg:gap-10">
         
-        <a href="#" className="flex items-center gap-[14px]">
+        <a href="/" className="flex items-center gap-[14px]">
           <span className="w-12 h-12 grid place-items-center">
             <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="w-full h-full">
               <circle cx="32" cy="32" r="29" fill="none" stroke="#E0651E" strokeWidth="3" strokeDasharray="46 1000" transform="rotate(-90 32 32)"></circle>
@@ -32,7 +32,7 @@ export default function Nav() {
             {['Vision', 'Manifesto', 'Eligibility', 'Contact'].map((item) => (
               <li key={item}>
                 <a 
-                  href={`#${item.toLowerCase()}`} 
+                  href={`/#${item.toLowerCase()}`} 
                   className="font-condensed text-[14px] font-medium tracking-[0.18em] uppercase text-ink py-[6px] relative after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[2px] after:bg-saffron after:scale-x-0 after:origin-left after:transition-transform after:duration-250 hover:text-saffron-deep hover:after:scale-x-100"
                 >
                   {item}
@@ -43,7 +43,7 @@ export default function Nav() {
         </nav>
 
         <a 
-          href="#eligibility" 
+          href="/#eligibility"
           className="bg-ink text-paper font-condensed text-[11px] sm:text-[12px] font-semibold tracking-[0.16em] sm:tracking-[0.2em] uppercase px-[14px] py-[9px] sm:px-[22px] sm:py-[12px] border-2 border-ink transition-all duration-150 hover:bg-saffron-deep hover:border-saffron-deep hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[4px_4px_0_var(--color-ink)]"
         >
           Join the Party

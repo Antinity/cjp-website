@@ -29,9 +29,9 @@ export default function Footer() {
                 The Party
               </h4>
               <ul className="list-none flex flex-col gap-[11px]">
-                <li><a href="#vision" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Vision</a></li>
-                <li><a href="#manifesto" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Manifesto</a></li>
-                <li><a href="#contact" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Founder</a></li>
+                <li><a href="/#vision" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Vision</a></li>
+                <li><a href="/#manifesto" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Manifesto</a></li>
+                <li><a href="/#contact" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Founder</a></li>
               </ul>
             </div>
             <div className="flex flex-col">
@@ -39,9 +39,9 @@ export default function Footer() {
                 Get involved
               </h4>
               <ul className="list-none flex flex-col gap-[11px]">
-                <li><a href="#join" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Eligibility</a></li>
-                <li><a href="#contact" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Join the party</a></li>
-                <li><a href="#contact" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Volunteer</a></li>
+                <li><a href="/#join" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Eligibility</a></li>
+                <li><a href="/#contact" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Join the party</a></li>
+                <li><a href="/#contact" className="font-sans text-[15px] text-[rgba(244,235,215,0.72)] transition-colors duration-150 hover:text-saffron-2">Volunteer</a></li>
               </ul>
             </div>
             <div className="flex flex-col">
@@ -68,7 +68,7 @@ export default function Footer() {
             <div className="flex gap-[8px]">
               <a href="#" className="text-[rgba(244,235,215,0.55)] transition-colors duration-150 hover:text-saffron-2">Privacy</a> · 
               <a href="#" className="text-[rgba(244,235,215,0.55)] transition-colors duration-150 hover:text-saffron-2">Press</a> · 
-              <a href="#" className="text-[rgba(244,235,215,0.55)] transition-colors duration-150 hover:text-saffron-2">Contact</a>
+              <a href="/#contact" className="text-[rgba(244,235,215,0.55)] transition-colors duration-150 hover:text-saffron-2">Contact</a>
             </div>
           </div>
         </div>

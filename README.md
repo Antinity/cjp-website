@@ -16,6 +16,24 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Hostinger Deployment
+
+This project is configured as a static Next.js export with PHP endpoints in `public/api`.
+
+1. Run `npm run build`.
+2. Upload the generated `out` folder contents to Hostinger `public_html`.
+3. Create the MySQL tables from `HOSTINGER_COUNTER_ARCHITECTURE.md`.
+4. Enable APCu for the active PHP version in hPanel.
+5. Set a cron job every 5 minutes:
+
+```bash
+curl -s "https://your-domain.com/api/counter.php?action=flush&token=YOUR_TOKEN" >/dev/null 2>&1
+curl -s "https://your-domain.com/api/petition.php?action=flush&token=YOUR_TOKEN" >/dev/null 2>&1
+curl -s "https://your-domain.com/api/members.php?action=flush&token=YOUR_TOKEN" >/dev/null 2>&1
+```
+
+Set `FLUSH_TOKEN`, `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`, `IP_HASH_SALT`, and `ALLOWED_ORIGIN` in the hosting environment.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

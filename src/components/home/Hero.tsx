@@ -1,7 +1,14 @@
 import React from "react";
-import Image from "next/image";
+import CounterCell from "./CounterCell";
 
-export default function Hero() {
+interface HeroProps {
+  stats?: {
+    members: number;
+    visitorsToday: number;
+  };
+}
+
+export default function Hero({ stats = { members: 0, visitorsToday: 0 } }: HeroProps) {
   return (
     <section className="relative border-b-[3px] border-ink overflow-hidden" data-screen-label="01 Hero">
       <div
@@ -45,6 +52,12 @@ export default function Hero() {
             >
               Read the Manifesto
             </a>
+            <a
+              href="/sack"
+              className="font-condensed text-[14px] font-bold tracking-[0.1em] uppercase text-blood border-b-2 border-blood pb-[4px] transition-all duration-200 hover:bg-blood hover:text-paper px-2 pt-1"
+            >
+              Petition to sack Education minister
+            </a>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-[18px] border-t border-[rgba(26,17,8,0.2)] pt-[22px] w-full">
@@ -56,7 +69,7 @@ export default function Hero() {
               <strong className="font-display text-[28px] sm:text-[36px] font-normal text-ink leading-none">0</strong>
               <span className="font-mono text-[10.5px] tracking-[0.18em] uppercase text-ink-3">Corporate donors</span>
             </div>
-            <div className="flex flex-col gap-[6px] pr-[18px] border-r border-[rgba(26,17,8,0.12)]">
+             <div className="flex flex-col gap-[6px] pr-[18px] border-r border-[rgba(26,17,8,0.12)]">
               <strong className="font-display text-[28px] sm:text-[36px] font-normal text-ink leading-none">∞</strong>
               <span className="font-mono text-[10.5px] tracking-[0.18em] uppercase text-ink-3">Patience</span>
             </div>
@@ -64,6 +77,17 @@ export default function Hero() {
               <strong className="font-display text-[28px] sm:text-[36px] font-normal text-ink leading-none">1</strong>
               <span className="font-mono text-[10.5px] tracking-[0.18em] uppercase text-ink-3">Founder, no PA</span>
             </div>
+            <CounterCell
+              value={stats.members}
+              label="Members"
+              isLive={true}
+              endpoint="/api/members.php?action=get"
+            />
+            <CounterCell
+              value={stats.visitorsToday}
+              label="Visitors"
+              endpoint="/api/counter.php?action=increment"
+            />
           </div>
         </div>
 
@@ -85,7 +109,7 @@ export default function Hero() {
                 Together · Resilient · Unstoppable
               </p>
               <p className="font-display text-[18px] sm:text-[22px] leading-[1.15] text-paper tracking-[-0.005em]">
-                "They tried to step on us.<br />We came back."
+                &quot;They tried to step on us.<br />We came back.&quot;
               </p>
             </div>
           </div>
