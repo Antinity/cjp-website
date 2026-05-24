@@ -15,6 +15,20 @@ export default function Home() {
           A movement built by the generation tired of being<br />ignored, unemployed, and spoken down.
         </p>
       </div>
+
+      <div className="absolute bottom-12 left-12 w-xl space-y-1 bg-black/10 backdrop-blur-sm px-6 py-8 rounded-xl cursor-pointer hover:bg-black/20 transition-all">
+        <div className="flex items-center gap-4">
+          {/* red dot */}
+          <div className="rounded-full h-4 w-4 bg-red-600"></div>
+          <div>
+            <p className="text-white font-semibold">Activity I</p>
+            <p className="text-white font-semibold">Petition for resignation of Dharmendra Pradhan</p>
+          </div>
+        </div>
+        <p className="text-xs text-white/70 pl-8">May 22, 2026 • 500K+ Signed</p>
+        <p className="text-white/90 pl-8 text-sm">We demand the resignation of the Education Minister of India for failing a generation of students. From exam mismanagement and unemployment anxiety to policy failures and institutional silence, students deserve accountability, not excuses.</p>
+      </div>
+
     </div>
   );
 }
